@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f7f7f3"><meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Kinfolk"><meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <title>Kinfolk — Family chat</title><link rel="manifest" href="./manifest.json"><link rel="icon" href="./icon.svg" type="image/svg+xml"><link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header class="topbar"><a class="brand" href="./"><span class="mark">♥</span><span>kinfolk</span></a><div class="topright"><span class="private-tag"><i></i> PRIVATE FAMILY SPACE</span><span id="userBadge" class="user-badge">—</span><button id="signOut" class="text-button" hidden>Sign out</button></div></header>
+  <main id="app">
+    <section id="configView" class="center-card" hidden><div class="mark large">♥</div><p class="eyebrow">One quick setup step</p><h1>Connect your family space</h1><p class="lead">Add your Supabase project URL and public publishable key to <code>config.js</code>. The app needs them to send sign-in codes and sync messages.</p><p class="small muted">Never put a service-role key in this app.</p></section>
+    <section id="authView" class="center-card" hidden><div class="mark large">♥</div><p class="eyebrow">A private place for your people</p><h1 id="authTitle">Come on in</h1><p id="authMessage" class="lead">Sign in with the phone number a family member invited.</p>
+      <form id="phoneForm"><label for="displayName">Your name</label><input id="displayName" class="field" placeholder="Name shown to family" autocomplete="name"><label for="phone">Phone number</label><input id="phone" class="field" type="tel" placeholder="+1 555 123 4567" autocomplete="tel" required><div id="captchaWidget" class="captcha"></div><p id="captchaHint" class="small muted">Complete the anti-spam check to request a code.</p><button id="sendCode" class="primary full" type="submit">Text me a sign-in code</button></form>
+      <form id="otpForm" hidden><label for="otp">Code from text message</label><input id="otp" class="field" inputmode="numeric" autocomplete="one-time-code" placeholder="6-digit code" required><button class="primary full" type="submit">Verify and enter</button><button id="changePhone" class="link-button" type="button">Use another phone number</button></form>
+      <p id="authError" class="error" role="status"></p><p class="small muted">Only numbers invited into this family can open its contacts and chats.</p>
+    </section>
+    <section id="appView" class="layout" hidden>
+      <aside class="panel sidebar"><div class="familyline"><p class="eyebrow">Your circle</p><h2 id="familyName">Your Family</h2><p class="muted small"><span id="memberCount">1</span> family members</p></div><div class="section-label">Contacts <span id="contactCount" class="muted small">0</span></div><label class="search">⌕<input id="search" placeholder="Find a contact"></label><div id="people" class="people"></div><button id="openAdd" class="add-button">＋ &nbsp;Add by phone number</button></aside>
+      <section class="panel chat"><div class="chat-head"><div id="chatAvatar" class="avatar">♥</div><div><div id="chatName" class="chat-title">Your family</div><div id="chatStatus" class="chat-status">Add a contact to start chatting</div></div></div><div id="messages" class="messages"><div class="empty">Add a family member by phone number to start a private conversation.</div></div><form id="composer" class="composer"><input id="messageInput" maxlength="4000" placeholder="Write a message…" autocomplete="off" disabled><button id="sendMessage" class="send" aria-label="Send" disabled>➤</button></form></section>
+    </section>
+  </main>
+  <div id="modal" class="backdrop" hidden><section class="modal"><div class="modal-head"><div><p class="eyebrow">Your family circle</p><h2>Add a family member</h2></div><button id="closeModal" class="close" aria-label="Close">×</button></div><p class="muted">They’ll need to verify this phone number before they can join and chat.</p><form id="addForm"><label for="newName">Their name</label><input id="newName" class="field" placeholder="Name shown to family" required><label for="newPhone">Phone number</label><input id="newPhone" class="field" type="tel" placeholder="+1 555 123 4567" required><button class="primary full" type="submit">Add family contact</button><p id="addError" class="error" role="status"></p></form></section></div>
+  <div id="toast" class="toast" role="status"></div>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" defer></script><script src="./config.js"></script><script type="module" src="./app.js"></script>
+</body></html>
